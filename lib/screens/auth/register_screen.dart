@@ -26,18 +26,11 @@ class RegisterPage extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.red,
-              Colors.orange,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+        decoration: const BoxDecoration(color: Colors.white),
+        child: Center(
+          child: SingleChildScrollView(
+            child: const RegisterForm(),
           ),
-        ),
-        child: SingleChildScrollView(
-          child: const RegisterForm(),
         ),
       ),
     );
@@ -57,14 +50,14 @@ class RegisterForm extends StatelessWidget {
           TextField(
             onChanged: (value) {},
             decoration: InputDecoration(
-              labelStyle: const TextStyle(color: Colors.white),
+              labelStyle: const TextStyle(color: Colors.black),
               labelText: 'Ad',
               border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white),
+                borderSide: const BorderSide(color: Colors.black),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white),
+                borderSide: const BorderSide(color: Colors.black),
                 borderRadius: BorderRadius.circular(8.0),
               ),
             ),
@@ -73,14 +66,14 @@ class RegisterForm extends StatelessWidget {
           TextField(
             onChanged: (value) {},
             decoration: InputDecoration(
-              labelStyle: const TextStyle(color: Colors.white),
+              labelStyle: const TextStyle(color: Colors.black),
               labelText: 'SoyAdı',
               border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white),
+                borderSide: const BorderSide(color: Colors.black),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white),
+                borderSide: const BorderSide(color: Colors.black),
                 borderRadius: BorderRadius.circular(8.0),
               ),
             ),
@@ -90,14 +83,14 @@ class RegisterForm extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             onChanged: (value) {},
             decoration: InputDecoration(
-              labelStyle: const TextStyle(color: Colors.white),
+              labelStyle: const TextStyle(color: Colors.black),
               labelText: 'Email',
               border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white),
+                borderSide: const BorderSide(color: Colors.black),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white),
+                borderSide: const BorderSide(color: Colors.black),
                 borderRadius: BorderRadius.circular(8.0),
               ),
             ),
@@ -106,14 +99,14 @@ class RegisterForm extends StatelessWidget {
           TextField(
             onChanged: (value) {},
             decoration: InputDecoration(
-              labelStyle: const TextStyle(color: Colors.white),
+              labelStyle: const TextStyle(color: Colors.black),
               labelText: 'Kullanıcı Adı',
               border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white),
+                borderSide: const BorderSide(color: Colors.black),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white),
+                borderSide: const BorderSide(color: Colors.black),
                 borderRadius: BorderRadius.circular(8.0),
               ),
             ),
@@ -124,13 +117,13 @@ class RegisterForm extends StatelessWidget {
             onChanged: (value) {},
             decoration: InputDecoration(
               labelText: 'Parola',
-              labelStyle: const TextStyle(color: Colors.white),
+              labelStyle: const TextStyle(color: Colors.black),
               border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white),
+                borderSide: const BorderSide(color: Colors.black),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white),
+                borderSide: const BorderSide(color: Colors.black),
                 borderRadius: BorderRadius.circular(8.0),
               ),
             ),
@@ -147,7 +140,7 @@ class RegisterForm extends StatelessWidget {
               );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.orange,
             ),
             child: const Text(
               'Kayıt Ol',

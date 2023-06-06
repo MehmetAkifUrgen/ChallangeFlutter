@@ -26,99 +26,104 @@ class Sweepstake extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(8)),
         color: Colors.white,
       ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(ownerPicture),
-                    radius: 15,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        ownerName,
-                        textAlign: TextAlign.left,
-                        style: const TextStyle(
-                          color: Colors.orange,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        ownerRole,
-                        textAlign: TextAlign.left,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const Image(
-                image: AssetImage('assets/home.png'),
-                width: 20,
-                height: 20,
-              ),
-            ],
-          ),
-          Flexible(
-            child: Center(
-              child: Column(
-                children: [
-                  Center(
-                    child: Image(
-                      image: NetworkImage(productPicture),
-                      width: 80,
-                      height: 80,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(productName),
-                ],
-              ),
-            ),
-          ),
-          RichText(
-            text: const TextSpan(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextSpan(
-                  text: '2',
-                  style: TextStyle(
-                    color: Colors.orange,
-                    fontSize: 12,
-                  ),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(ownerPicture),
+                      radius: 15,
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          ownerName,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            color: Colors.orange,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          ownerRole,
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                TextSpan(text: ' gün ', style: TextStyle(color: Colors.black)),
-                TextSpan(
-                  text: '14',
-                  style: TextStyle(
-                    color: Colors.orange,
-                    fontSize: 12,
-                  ),
-                ),
-                TextSpan(text: ' saat ', style: TextStyle(color: Colors.black)),
-                TextSpan(
-                  text: '26',
-                  style: TextStyle(
-                    color: Colors.orange,
-                    fontSize: 12,
-                  ),
-                ),
-                TextSpan(
-                  text: ' dakika kaldı',
-                  style: TextStyle(color: Colors.black, fontSize: 12),
+                const Image(
+                  image: AssetImage('assets/home.png'),
+                  width: 20,
+                  height: 20,
                 ),
               ],
             ),
-          ),
-        ],
+            Flexible(
+              child: Center(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Image(
+                        image: NetworkImage(productPicture),
+                        width: 80,
+                        height: 80,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(productName),
+                  ],
+                ),
+              ),
+            ),
+            RichText(
+              text: const TextSpan(
+                children: [
+                  TextSpan(
+                    text: '2',
+                    style: TextStyle(
+                      color: Colors.orange,
+                      fontSize: 12,
+                    ),
+                  ),
+                  TextSpan(
+                      text: ' gün ', style: TextStyle(color: Colors.black)),
+                  TextSpan(
+                    text: '14',
+                    style: TextStyle(
+                      color: Colors.orange,
+                      fontSize: 12,
+                    ),
+                  ),
+                  TextSpan(
+                      text: ' saat ', style: TextStyle(color: Colors.black)),
+                  TextSpan(
+                    text: '26',
+                    style: TextStyle(
+                      color: Colors.orange,
+                      fontSize: 12,
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' dakika kaldı',
+                    style: TextStyle(color: Colors.black, fontSize: 12),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

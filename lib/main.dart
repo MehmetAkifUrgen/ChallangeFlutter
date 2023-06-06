@@ -1,3 +1,4 @@
+import 'package:deneme_p/components/icon_image.dart';
 import 'package:deneme_p/screens/home.dart';
 import 'package:deneme_p/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -69,23 +70,17 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      icon: const Image(
-                        image: AssetImage('assets/home.png'),
-                        width: 24,
-                        height: 24,
-                      ),
+                      icon: const IconImage(iconAsset: 'assets/home.png'),
                       onPressed: () {},
                     ),
                     Row(
                       children: [
                         IconButton(
-                          icon:
-                              const Image(image: AssetImage('assets/menu.png')),
+                          icon: const IconImage(iconAsset: 'assets/menu.png'),
                           onPressed: () {},
                         ),
                         IconButton(
-                          icon:
-                              const Image(image: AssetImage('assets/user.png')),
+                          icon: const IconImage(iconAsset: 'assets/user.png'),
                           onPressed: () {},
                         ),
                       ],
@@ -121,11 +116,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           onPressed: () {},
           backgroundColor: Colors.transparent,
           elevation: 0,
-          child: const Image(
-            image: AssetImage('assets/shuttle.png'),
-            width: 24,
-            height: 24,
-          ),
+          child: const IconImage(iconAsset: 'assets/shuttle.png'),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -136,11 +127,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: const Image(
-                image: AssetImage('assets/home.png'),
-                width: 24,
-                height: 24,
-              ),
+              icon: const IconImage(iconAsset: 'assets/home.png'),
               onPressed: () {
                 setState(() {
                   _currentIndex = 0;
@@ -148,11 +135,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
               },
             ),
             IconButton(
-              icon: const Image(
-                image: AssetImage('assets/menu.png'),
-                width: 24,
-                height: 24,
-              ),
+              icon: const IconImage(iconAsset: 'assets/menu.png'),
               onPressed: () {
                 setState(() {
                   _currentIndex = 1;
@@ -163,11 +146,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
               width: 40,
             ),
             IconButton(
-              icon: const Image(
-                image: AssetImage('assets/notification.png'),
-                width: 24,
-                height: 24,
-              ),
+              icon: const IconImage(iconAsset: 'assets/notification.png'),
               onPressed: () {
                 setState(() {
                   _currentIndex = 2;
@@ -175,11 +154,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
               },
             ),
             IconButton(
-              icon: const Image(
-                image: AssetImage('assets/user.png'),
-                width: 24,
-                height: 24,
-              ),
+              icon: const IconImage(iconAsset: 'assets/user.png'),
               onPressed: () {
                 setState(() {
                   _currentIndex = 3;

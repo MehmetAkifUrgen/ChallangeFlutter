@@ -35,16 +35,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Colors.red,
-            Colors.orange,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
+      decoration: const BoxDecoration(color: Colors.white),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
@@ -54,14 +45,14 @@ class LoginForm extends StatelessWidget {
               TextField(
                 onChanged: (value) {},
                 decoration: InputDecoration(
-                  labelStyle: const TextStyle(color: Colors.white),
+                  labelStyle: const TextStyle(color: Colors.black),
                   labelText: 'Kullanıcı Adı',
                   border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.black),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.black),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
@@ -72,13 +63,13 @@ class LoginForm extends StatelessWidget {
                 onChanged: (value) {},
                 decoration: InputDecoration(
                   labelText: 'Parola',
-                  labelStyle: const TextStyle(color: Colors.white),
+                  labelStyle: const TextStyle(color: Colors.black),
                   border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.black),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(color: Colors.black),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
@@ -95,7 +86,7 @@ class LoginForm extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
+                  backgroundColor: Colors.orange,
                 ),
                 child: const Text(
                   'Giriş',
@@ -116,7 +107,7 @@ class LoginForm extends StatelessWidget {
                 child: const Text(
                   'Hala Kayıt Olmadınız mı? Kayıt Olun!',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     decoration: TextDecoration.underline,
                   ),
                 ),
