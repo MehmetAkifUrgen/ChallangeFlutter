@@ -1,5 +1,6 @@
 import 'package:deneme_p/components/icon_image.dart';
 import 'package:deneme_p/screens/home.dart';
+import 'package:deneme_p/screens/notifications.dart';
 import 'package:deneme_p/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/profile.dart';
@@ -92,7 +93,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             Expanded(
               child: IndexedStack(
                 index: _currentIndex,
-                children: const [Home(), ProfilePage()],
+                children: const [Home(), ProfilePage(), Notifications()],
               ),
             ),
           ],
@@ -116,7 +117,10 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           onPressed: () {},
           backgroundColor: Colors.transparent,
           elevation: 0,
-          child: const IconImage(iconAsset: 'assets/shuttle.png'),
+          child: const Icon(
+            Icons.rocket_launch_outlined,
+            size: 48,
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -127,7 +131,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: const IconImage(iconAsset: 'assets/home.png'),
+              icon: const Icon(
+                Icons.home,
+                size: 24,
+              ),
+              color: _currentIndex == 0 ? Colors.orange : Colors.grey,
               onPressed: () {
                 setState(() {
                   _currentIndex = 0;
@@ -135,7 +143,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
               },
             ),
             IconButton(
-              icon: const IconImage(iconAsset: 'assets/menu.png'),
+              icon: const Icon(
+                Icons.menu,
+                size: 24,
+              ),
+              color: _currentIndex == 1 ? Colors.orange : Colors.grey,
               onPressed: () {
                 setState(() {
                   _currentIndex = 1;
@@ -146,7 +158,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
               width: 40,
             ),
             IconButton(
-              icon: const IconImage(iconAsset: 'assets/notification.png'),
+              icon: const Icon(
+                Icons.notification_add,
+                size: 24,
+              ),
+              color: _currentIndex == 2 ? Colors.orange : Colors.grey,
               onPressed: () {
                 setState(() {
                   _currentIndex = 2;
@@ -154,7 +170,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
               },
             ),
             IconButton(
-              icon: const IconImage(iconAsset: 'assets/user.png'),
+              icon: const Icon(
+                Icons.account_box,
+                size: 24,
+              ),
+              color: _currentIndex == 3 ? Colors.orange : Colors.grey,
               onPressed: () {
                 setState(() {
                   _currentIndex = 3;
