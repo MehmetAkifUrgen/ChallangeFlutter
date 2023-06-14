@@ -29,21 +29,25 @@ class Notifications extends StatelessWidget {
                   decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 235, 230, 230),
                       borderRadius: BorderRadius.all(Radius.circular(8))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        const HeadTestOwner(
-                            image:
-                                "https://upload.wikimedia.org/wikipedia/tr/1/19/Scarfaceinthefall.jpg",
-                            name: "Al Pacino",
-                            job: "Aktör",
-                            sweepstake: "Monster Abra A7"),
-                        const Question(question: "A- Scarface 1983"),
-                        CountdownTimerWidget(),
-                        const QuestionButton(
-                            text: "Sıradaki Soru", color: Colors.orange)
-                      ],
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          HeadTestOwner(
+                              image:
+                                  "https://upload.wikimedia.org/wikipedia/tr/1/19/Scarfaceinthefall.jpg",
+                              name: "Al Pacino",
+                              job: "Aktör",
+                              sweepstake: "Monster Abra A7"),
+                          Question(question: "A- Scarface 1983"),
+                          CountdownTimerWidget(),
+                          QuestionButton(
+                              text: "Sıradaki Soru", color: Colors.orange),
+           
+                        ],
+                      ),
                     ),
                   ),
                 );

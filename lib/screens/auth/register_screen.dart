@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../main.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({Key? key});
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,9 @@ class RegisterPage extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         decoration: const BoxDecoration(color: Colors.white),
-        child: Center(
+        child: const Center(
           child: SingleChildScrollView(
-            child: const RegisterForm(),
+            child: RegisterForm(),
           ),
         ),
       ),
@@ -38,6 +38,7 @@ class RegisterPage extends StatelessWidget {
 }
 
 class RegisterForm extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const RegisterForm({Key? key});
 
   @override

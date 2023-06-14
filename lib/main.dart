@@ -1,5 +1,6 @@
 import 'package:deneme_p/components/icon_image.dart';
 import 'package:deneme_p/screens/home.dart';
+import 'package:deneme_p/screens/menu.dart';
 import 'package:deneme_p/screens/notifications.dart';
 import 'package:deneme_p/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +94,12 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             Expanded(
               child: IndexedStack(
                 index: _currentIndex,
-                children: const [Home(), ProfilePage(), Notifications()],
+                children: const [
+                  Home(),
+                  Menu(),
+                  Notifications(),
+                  ProfilePage()
+                ],
               ),
             ),
           ],

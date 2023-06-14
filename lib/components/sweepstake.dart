@@ -1,4 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
+import 'package:deneme_p/components/my_rich_text.dart';
 
 class Sweepstake extends StatelessWidget {
   final String ownerPicture;
@@ -7,14 +10,21 @@ class Sweepstake extends StatelessWidget {
   final String productName;
   final String time;
   final String ownerRole;
+  final String gun;
+  final String saat;
+  final String dakika;
+
   const Sweepstake({
     Key? key,
     required this.ownerPicture,
     required this.ownerName,
     required this.productPicture,
     required this.productName,
-    required this.ownerRole,
     required this.time,
+    required this.ownerRole,
+    required this.gun,
+    required this.saat,
+    required this.dakika,
   }) : super(key: key);
 
   @override
@@ -87,41 +97,7 @@ class Sweepstake extends StatelessWidget {
                 ),
               ),
             ),
-            RichText(
-              text: const TextSpan(
-                children: [
-                  TextSpan(
-                    text: '2',
-                    style: TextStyle(
-                      color: Colors.orange,
-                      fontSize: 12,
-                    ),
-                  ),
-                  TextSpan(
-                      text: ' gün ', style: TextStyle(color: Colors.black)),
-                  TextSpan(
-                    text: '14',
-                    style: TextStyle(
-                      color: Colors.orange,
-                      fontSize: 12,
-                    ),
-                  ),
-                  TextSpan(
-                      text: ' saat ', style: TextStyle(color: Colors.black)),
-                  TextSpan(
-                    text: '26',
-                    style: TextStyle(
-                      color: Colors.orange,
-                      fontSize: 12,
-                    ),
-                  ),
-                  TextSpan(
-                    text: ' dakika kaldı',
-                    style: TextStyle(color: Colors.black, fontSize: 12),
-                  ),
-                ],
-              ),
-            ),
+            MyRichText(gun: gun, saat: saat, dakika: dakika)
           ],
         ),
       ),

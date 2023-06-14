@@ -41,6 +41,9 @@ class Home extends StatelessWidget {
                           "https://yt3.googleusercontent.com/3ie-WUaP3rIXn0RqN16o4-S2eFXEba6nMyZlOA3Oe4Q0bhe444siImu1fbEA9Kn-qJy6jmY1fyI=s900-c-k-c0x00ffffff-no-rj",
                       time: "2 gün",
                       ownerRole: "Youtuber",
+                      gun: "2",
+                      saat: "14",
+                      dakika: "36",
                     ),
                   ),
                   PrepareQuestionButton(

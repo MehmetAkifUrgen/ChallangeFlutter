@@ -1,3 +1,4 @@
+import 'package:deneme_p/components/fireworks.dart';
 import 'package:deneme_p/components/one_vs_one.dart';
 import 'package:flutter/material.dart';
 
@@ -34,6 +35,7 @@ class ProfilePage extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(8))),
                   child: Column(
                     children: [
+                      Fireworks(),
                       Padding(
                         padding: EdgeInsets.all(screenHeight / 25),
                         child: Hero(
