@@ -1,5 +1,6 @@
 import 'package:deneme_p/components/fireworks.dart';
 import 'package:deneme_p/components/one_vs_one.dart';
+import 'package:deneme_p/screens/question_ending_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../components/fill_char.dart';
@@ -35,28 +36,29 @@ class ProfilePage extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(8))),
                   child: Column(
                     children: [
-                      Fireworks(),
-                      Padding(
-                        padding: EdgeInsets.all(screenHeight / 25),
-                        child: Hero(
-                            tag: "profile_avatar",
-                            child: CircleAvatar(
-                              backgroundImage: const NetworkImage(
-                                  "https://upload.wikimedia.org/wikipedia/tr/1/19/Scarfaceinthefall.jpg"),
-                              radius: screenHeight / 15,
-                            )),
-                      ),
-                      Text(
-                        'Tony Montana',
-                        style: TextStyle(
-                            color: Colors.orange,
-                            fontSize: screenWidth / 30,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: screenHeight / 30),
+                      // Fireworks(),
+                      // Padding(
+                      //   padding: EdgeInsets.all(screenHeight / 25),
+                      //   child: Hero(
+                      //       tag: "profile_avatar",
+                      //       child: CircleAvatar(
+                      //         backgroundImage: const NetworkImage(
+                      //             "https://upload.wikimedia.org/wikipedia/tr/1/19/Scarfaceinthefall.jpg"),
+                      //         radius: screenHeight / 15,
+                      //       )),
+                      // ),
+                      // Text(
+                      //   'Tony Montana',
+                      //   style: TextStyle(
+                      //       color: Colors.orange,
+                      //       fontSize: screenWidth / 30,
+                      //       fontWeight: FontWeight.bold),
+                      // ),
+                      // SizedBox(height: screenHeight / 30),
                       const OnevsOne(),
-                      SizedBox(height: screenHeight / 30),
-                      const FillChar(),
+                      QuestionEndingScreen(name: "Akif"),
+                      // SizedBox(height: screenHeight / 30),
+                      // const FillChar(),
                     ],
                   ),
                 );
