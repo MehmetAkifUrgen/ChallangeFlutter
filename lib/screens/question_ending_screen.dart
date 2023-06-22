@@ -14,12 +14,12 @@ class QuestionEndingScreen extends StatelessWidget {
         children: [
           Image(
             width: Constants.screenWidth(context) / 4,
-            image: AssetImage("assets/checked2.png"),
+            image: const AssetImage("assets/checked2.png"),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Text(
+          const Text(
             "TEBRİKLER!",
             style: TextStyle(color: Colors.green),
           ),
@@ -28,12 +28,12 @@ class QuestionEndingScreen extends StatelessWidget {
           ),
           const Text("Bütün soruları cevapladınız.",
               style: TextStyle(fontWeight: FontWeight.w500)),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(
             "$name cevapladıktan sonra kazanan belirlenecek.",
-            style: TextStyle(fontWeight: FontWeight.w500),
+            style: const TextStyle(fontWeight: FontWeight.w500),
           )
         ],
       ),
