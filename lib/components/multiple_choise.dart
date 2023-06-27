@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 
 class MultipleChoiceWidget extends StatefulWidget {
-  const MultipleChoiceWidget({super.key});
+  const MultipleChoiceWidget({Key? key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _MultipleChoiceWidgetState createState() => _MultipleChoiceWidgetState();
 
-  List<TextEditingController> getControllers() {
-    return _MultipleChoiceWidgetState().controllers;
+  static void reset(BuildContext context) {
+    final _MultipleChoiceWidgetState? state =
+        context.findAncestorStateOfType<_MultipleChoiceWidgetState>();
+    if (state != null) {
+      state.reset();
+      print("reset state");
+    }
+  }
+
+  static bool areInputsEmpty(BuildContext context) {
+    final _MultipleChoiceWidgetState? state =
+        context.findAncestorStateOfType<_MultipleChoiceWidgetState>();
+    if (state != null) {
+      return state.inputsEmpty();
+    }
+    return false;
   }
 }
 
@@ -18,12 +31,22 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
       List.generate(4, (_) => TextEditingController());
   int selectedChoiceIndex = 0;
 
-  @override
-  void dispose() {
+  void reset() {
+    setState(() {
+      for (var controller in controllers) {
+        controller.clear();
+      }
+      selectedChoiceIndex = 0;
+    });
+  }
+
+  bool inputsEmpty() {
     for (var controller in controllers) {
-      controller.dispose();
+      if (controller.text.isEmpty) {
+        return true;
+      }
     }
-    super.dispose();
+    return false;
   }
 
   @override

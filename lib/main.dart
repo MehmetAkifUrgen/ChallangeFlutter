@@ -1,11 +1,12 @@
-import 'package:deneme_p/components/icon_image.dart';
-import 'package:deneme_p/screens/home.dart';
-import 'package:deneme_p/screens/menu.dart';
-import 'package:deneme_p/screens/notifications.dart';
-import 'package:deneme_p/screens/splash_screen.dart';
+import 'package:deneme_p/screens/question_prepare_screen.dart';
 import 'package:flutter/material.dart';
-import 'screens/profile.dart';
 import 'package:flutter/services.dart';
+
+import 'screens/home.dart';
+import 'screens/menu.dart';
+import 'screens/notifications.dart';
+import 'screens/profile.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -16,8 +17,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const MyApp({Key? key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +29,20 @@ class MyApp extends StatelessWidget {
 }
 
 class CustomNavigationBar extends StatefulWidget {
-  // ignore: use_key_in_widget_constructors
-  const CustomNavigationBar({Key? key});
+  const CustomNavigationBar({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _CustomNavigationBarState createState() => _CustomNavigationBarState();
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
   int _currentIndex = 0;
+
+  void _onTabSelected(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,17 +76,29 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      icon: const IconImage(iconAsset: 'assets/home.png'),
+                      icon: const Icon(
+                        Icons.home,
+                        size: 24.0,
+                        color: Colors.white,
+                      ),
                       onPressed: () {},
                     ),
                     Row(
                       children: [
                         IconButton(
-                          icon: const IconImage(iconAsset: 'assets/menu.png'),
+                          icon: const Icon(
+                            Icons.menu,
+                            size: 24.0,
+                            color: Colors.white,
+                          ),
                           onPressed: () {},
                         ),
                         IconButton(
-                          icon: const IconImage(iconAsset: 'assets/user.png'),
+                          icon: const Icon(
+                            Icons.account_circle,
+                            size: 24.0,
+                            color: Colors.white,
+                          ),
                           onPressed: () {},
                         ),
                       ],
@@ -97,8 +113,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                 children: const [
                   Home(),
                   Menu(),
-                  Notifications(),
-                  ProfilePage()
+                  QuestionPrepareScreen(),
+                  ProfilePage(),
                 ],
               ),
             ),
@@ -142,11 +158,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                 size: 24,
               ),
               color: _currentIndex == 0 ? Colors.orange : Colors.grey,
-              onPressed: () {
-                setState(() {
-                  _currentIndex = 0;
-                });
-              },
+              onPressed: () => _onTabSelected(0),
             ),
             IconButton(
               icon: const Icon(
@@ -154,26 +166,16 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                 size: 24,
               ),
               color: _currentIndex == 1 ? Colors.orange : Colors.grey,
-              onPressed: () {
-                setState(() {
-                  _currentIndex = 1;
-                });
-              },
+              onPressed: () => _onTabSelected(1),
             ),
-            const SizedBox(
-              width: 40,
-            ),
+            const SizedBox(width: 40),
             IconButton(
               icon: const Icon(
                 Icons.notification_add,
                 size: 24,
               ),
               color: _currentIndex == 2 ? Colors.orange : Colors.grey,
-              onPressed: () {
-                setState(() {
-                  _currentIndex = 2;
-                });
-              },
+              onPressed: () => _onTabSelected(2),
             ),
             IconButton(
               icon: const Icon(
@@ -181,11 +183,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                 size: 24,
               ),
               color: _currentIndex == 3 ? Colors.orange : Colors.grey,
-              onPressed: () {
-                setState(() {
-                  _currentIndex = 3;
-                });
-              },
+              onPressed: () => _onTabSelected(3),
             ),
           ],
         ),

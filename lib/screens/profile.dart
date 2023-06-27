@@ -136,19 +136,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ],
                                   ),
                                   const SizedBox(
-                                    height: 10,
+                                    height: 20,
                                   ),
-                                  const HeadTestOwner(
-                                      image:
-                                          "https://upload.wikimedia.org/wikipedia/tr/1/19/Scarfaceinthefall.jpg",
-                                      name: "Al Pacino",
-                                      job: "Aktör",
-                                      sweepstake: "Monster Abra A7"),
-                                  const Question(question: "A- Scarface 1983"),
-                                  const CountdownTimerWidget(),
-                                  const QuestionButton(
-                                      text: "Sıradaki Soru",
-                                      color: Colors.orange),
+                                  // const HeadTestOwner(
+                                  //     image:
+                                  //         "https://upload.wikimedia.org/wikipedia/tr/1/19/Scarfaceinthefall.jpg",
+                                  //     name: "Al Pacino",
+                                  //     job: "Aktör",
+                                  //     sweepstake: "Monster Abra A7"),
+                                  // const Question(question: "A- Scarface 1983"),
+                                  // const CountdownTimerWidget(),
+                                  // const QuestionButton(
+                                  //     text: "Sıradaki Soru",
+                                  //     color: Colors.orange),
                                   const Rules(
                                       image_info: "assets/flame.png",
                                       info: "20 soru",
