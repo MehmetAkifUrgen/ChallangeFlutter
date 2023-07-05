@@ -18,15 +18,20 @@ class _QuestionPrepareScreenState extends State<QuestionPrepareScreen> {
   List<TextEditingController> controllers =
       List.generate(4, (_) => TextEditingController());
   int selectedChoiceIndex = 0;
-  TextEditingController question_controller = TextEditingController();
+  TextEditingController questionController = TextEditingController();
+  TextEditingController answerController = TextEditingController();
 
   bool isFieldEmpty = true;
+  String answer = "";
+  List<bool>? isSelected;
 
   @override
   void dispose() {
     for (var controller in controllers) {
       controller.dispose();
     }
+    questionController.dispose();
+    answerController.dispose();
     super.dispose();
   }
 
@@ -51,6 +56,17 @@ class _QuestionPrepareScreenState extends State<QuestionPrepareScreen> {
     });
   }
 
+  void clearFields() {
+    questionController.clear();
+    answerController.clear();
+    for (var controller in controllers) {
+      controller.clear();
+    }
+    setState(() {
+      selectedChoiceIndex = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,9 +78,12 @@ class _QuestionPrepareScreenState extends State<QuestionPrepareScreen> {
         ),
         child: Container(
           decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(24), topRight: Radius.circular(24))),
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: LayoutBuilder(
@@ -72,8 +91,9 @@ class _QuestionPrepareScreenState extends State<QuestionPrepareScreen> {
                 return SingleChildScrollView(
                   child: Container(
                     decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 235, 230, 230),
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
+                      color: Color.fromARGB(255, 235, 230, 230),
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -99,15 +119,16 @@ class _QuestionPrepareScreenState extends State<QuestionPrepareScreen> {
                                   },
                                   items: <String>[
                                     'Çoktan Seçmeli',
-                                    'Kelime bulmaca',
+                                    'Kelime Bulmaca',
                                     'Boşluk Doldurma',
                                   ].map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
+                                    (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    },
+                                  ).toList(),
                                 ),
                               ),
                             ),
@@ -128,7 +149,7 @@ class _QuestionPrepareScreenState extends State<QuestionPrepareScreen> {
                                     ),
                                   ),
                                   child: TextField(
-                                    controller: question_controller,
+                                    controller: questionController,
                                     onChanged: (text) {
                                       validateInput();
                                     },
@@ -145,78 +166,167 @@ class _QuestionPrepareScreenState extends State<QuestionPrepareScreen> {
                             ],
                           ),
                           const SizedBox(height: 20),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              for (var choice in choices)
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        '${choice}-',
-                                        style: const TextStyle(fontSize: 16.0),
-                                      ),
-                                      const SizedBox(width: 8.0),
-                                      Expanded(
-                                        flex: 3,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          child: TextField(
-                                            controller: controllers[
-                                                choices.indexOf(choice)],
-                                            decoration: const InputDecoration(
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      horizontal: 8.0),
-                                              border: InputBorder.none,
-                                            ),
-                                          ),
+                          if (selectedValue == 'Çoktan Seçmeli')
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                for (var choice in choices)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          '$choice-',
+                                          style:
+                                              const TextStyle(fontSize: 16.0),
                                         ),
-                                      ),
-                                      const SizedBox(width: 8.0),
-                                      GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            selectedChoiceIndex =
-                                                choices.indexOf(choice);
-                                          });
-                                        },
-                                        child: Container(
-                                          width: 24.0,
-                                          height: 24.0,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: selectedChoiceIndex ==
-                                                    choices.indexOf(choice)
-                                                ? Colors.green
-                                                : Colors.red,
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              selectedChoiceIndex ==
-                                                      choices.indexOf(choice)
-                                                  ? 'D'
-                                                  : 'Y',
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16.0,
-                                                color: Colors.white,
+                                        const SizedBox(width: 8.0),
+                                        Expanded(
+                                          flex: 3,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            child: TextField(
+                                              controller: controllers[
+                                                  choices.indexOf(choice)],
+                                              decoration: const InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 8.0),
+                                                border: InputBorder.none,
                                               ),
                                             ),
                                           ),
                                         ),
+                                        const SizedBox(width: 8.0),
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              selectedChoiceIndex =
+                                                  choices.indexOf(choice);
+                                            });
+                                          },
+                                          child: Container(
+                                            width: 24.0,
+                                            height: 24.0,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: selectedChoiceIndex ==
+                                                      choices.indexOf(choice)
+                                                  ? Colors.green
+                                                  : Colors.red,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                selectedChoiceIndex ==
+                                                        choices.indexOf(choice)
+                                                    ? 'D'
+                                                    : 'Y',
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16.0,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          if (selectedValue == 'Kelime Bulmaca')
+                            Center(
+                              child: Column(
+                                children: [
+                                  const Text("Cevabı yaz"),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          color: isFieldEmpty
+                                              ? Colors.transparent
+                                              : Colors.red,
+                                        ),
                                       ),
+                                      child: TextField(
+                                        controller: answerController,
+                                        onChanged: (text) {
+                                          setState(() {
+                                            answer = text;
+                                            isSelected = List.filled(
+                                                answer.length, false);
+                                          });
+                                        },
+                                        decoration: const InputDecoration(
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          border: InputBorder.none,
+                                          hintText: 'Cevabı yaz',
+                                        ),
+                                        maxLines: null,
+                                      ),
+                                    ),
+                                  ),
+                                  // Tıklanma durumunu tutan liste
+
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      for (int i = 0; i < answer.length; i++)
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                isSelected![i] = !isSelected![
+                                                    i]; // Tıklanma durumunu güncelle
+                                              });
+                                            },
+                                            child: Container(
+                                              width: 40,
+                                              height: 40,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                color: !isSelected![i]
+                                                    ? Colors.green
+                                                    : Colors
+                                                        .white, // Seçili olduğunda yeşil, seçili değilse şeffaf renk
+                                              ),
+                                              child: Center(
+                                                child: isSelected![i]
+                                                    ? const Icon(
+                                                        Icons.remove_red_eye,
+                                                        color: Colors
+                                                            .black) // Seçili olduğunda tik işareti ikonunu göster
+                                                    : Text(
+                                                        answer[i].toUpperCase(),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: const TextStyle(
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                     ],
                                   ),
-                                ),
-                            ],
-                          ),
+                                ],
+                              ),
+                            ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -230,11 +340,7 @@ class _QuestionPrepareScreenState extends State<QuestionPrepareScreen> {
                                   } else {
                                     setState(() {
                                       currentQuestionIndex++;
-                                      for (var controller in controllers) {
-                                        controller.clear();
-                                      }
-                                      question_controller.clear();
-                                      selectedChoiceIndex = 0;
+                                      clearFields();
                                     });
                                   }
                                 },
