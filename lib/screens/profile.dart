@@ -1,14 +1,8 @@
 import 'package:deneme_p/components/award_selection_button.dart';
-import 'package:deneme_p/components/fireworks.dart';
-import 'package:deneme_p/components/one_vs_one.dart';
 import 'package:flutter/material.dart';
-
 import '../components/fill_char.dart';
-import '../components/test/head_test_owner.dart';
-import '../components/test/question.dart';
-import '../components/test/question_button.dart';
+import '../components/fireworks.dart';
 import '../components/test/rules.dart';
-import '../components/test/timer.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key});
@@ -52,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     child: Column(
                       children: [
-                        // Fireworks(),
+                        //const Fireworks(),
                         Padding(
                           padding: EdgeInsets.all(screenHeight / 25),
                           child: Hero(
@@ -73,7 +67,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                         SizedBox(height: screenHeight / 30),
-
                         SizedBox(height: screenHeight / 30),
                         const FillChar(),
                         Padding(
