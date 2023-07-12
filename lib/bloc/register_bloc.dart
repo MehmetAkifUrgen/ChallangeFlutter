@@ -1,41 +1,7 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
+import '../service/api_service.dart';
 
-// Register Events
-abstract class RegisterEvent {}
-
-class UsernameChanged extends RegisterEvent {
-  final String username;
-
-  UsernameChanged(this.username);
-}
-
-class EmailChanged extends RegisterEvent {
-  final String email;
-
-  EmailChanged(this.email);
-}
-
-class NameChanged extends RegisterEvent {
-  final String name;
-
-  NameChanged(this.name);
-}
-
-class SurnameChanged extends RegisterEvent {
-  final String surname;
-
-  SurnameChanged(this.surname);
-}
-
-class PasswordChanged extends RegisterEvent {
-  final String password;
-
-  PasswordChanged(this.password);
-}
-
-class RegisterButtonPressed extends RegisterEvent {}
-
-// Register States
+// State class
 abstract class RegisterState {}
 
 class RegisterInitial extends RegisterState {}
@@ -45,49 +11,59 @@ class RegisterLoading extends RegisterState {}
 class RegisterSuccess extends RegisterState {}
 
 class RegisterFailure extends RegisterState {
-  final String error;
+  final String errorMessage;
 
-  RegisterFailure(this.error);
+  RegisterFailure(this.errorMessage);
 }
 
-class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  RegisterBloc() : super(RegisterInitial()) {
-    on<UsernameChanged>((event, emit) {
-      // Kullanıcı adı değiştiğinde yapılacak işlemler
-    });
+// Event class
+abstract class RegisterEvent {}
 
-    on<PasswordChanged>((event, emit) {
-      // Parola değiştiğinde yapılacak işlemler
-    });
-    on<SurnameChanged>((event, emit) {});
-    on<EmailChanged>((event, emit) {});
-    on<NameChanged>((event, emit) {});
-    on<RegisterButtonPressed>((event, emit) {});
+class RegisterButtonPressed extends RegisterEvent {
+  final String username;
+  final String email;
+  final String password;
+  final String firstName;
+  final String lastName;
+  final String phoneNumber;
+
+  RegisterButtonPressed({
+    required this.username,
+    required this.email,
+    required this.password,
+    required this.firstName,
+    required this.lastName,
+    required this.phoneNumber,
+  });
+}
+
+// Bloc class
+class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
+  final ApiService apiService;
+
+  RegisterBloc(this.apiService) : super(RegisterInitial()) {
+    on<RegisterButtonPressed>(_onRegisterButtonPressed);
   }
 
-  Stream<RegisterState> mapEventToState(RegisterEvent event) async* {
-    if (event is UsernameChanged) {
-      // Handle username change event
-      yield state; // You can add additional logic here
-    } else if (event is EmailChanged) {
-      // Handle email change event
-      yield state; // You can add additional logic here
-    } else if (event is PasswordChanged) {
-      // Handle password change event
-      yield state; // You can add additional logic here
-    } else if (event is RegisterButtonPressed) {
-      yield RegisterLoading();
+  void _onRegisterButtonPressed(
+    RegisterButtonPressed event,
+    Emitter<RegisterState> emit,
+  ) async {
+    emit(RegisterLoading());
 
-      try {
-        // Perform registration logic here
-        await Future.delayed(const Duration(seconds: 2));
+    try {
+      await apiService.registerUser(
+        username: event.username,
+        email: event.email,
+        password: event.password,
+        firstName: event.firstName,
+        lastName: event.lastName,
+        phoneNumber: event.phoneNumber,
+      );
 
-        // Simulate success response
-        yield RegisterSuccess();
-      } catch (error) {
-        // Handle error
-        yield RegisterFailure(error.toString());
-      }
+      emit(RegisterSuccess());
+    } catch (error) {
+      emit(RegisterFailure(error.toString()));
     }
   }
 }

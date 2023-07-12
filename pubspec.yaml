@@ -33,6 +33,7 @@ dependencies:
   flutter_bloc: ^8.1.3
   confetti: ^0.7.0
   rxdart: ^0.27.7
+  dio: ^5.2.1+1
   
 
 

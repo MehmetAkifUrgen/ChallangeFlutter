@@ -100,7 +100,7 @@ class LoginForm extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          const RegisterPage(), // Ana sayfa widget'ı
+                           RegisterPage(), // Ana sayfa widget'ı
                     ),
                   );
                 },
