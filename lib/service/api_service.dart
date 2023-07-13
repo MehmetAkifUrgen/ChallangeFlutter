@@ -41,19 +41,45 @@ class ApiService {
           'phoneNumber': phoneNumber,
         },
       );
-
+      var data = response.statusMessage;
       if (response.statusCode == 200) {
         // Başarılı bir şekilde kayıt işlemi gerçekleşti
         print('Kayıt işlemi başarılı');
       } else {
         // Kayıt işlemi başarısız oldu
-        print('Kayıt işlemi başarısız');
-        print(response.statusCode.toString());
-        print(response.statusMessage.toString());
+        throw Exception('Kayıt işlemi başarısız: $data');
       }
     } catch (error) {
       // Hata oluştu
-      print('Hata: $error');
+      throw Exception('Giriş işlemi başarısız: $error');
+    }
+  }
+
+  Future<void> loginUser({
+    String? emailOrUsername,
+    String? password,
+  }) async {
+    try {
+      final response = await _dio.post(
+        'auth/login',
+        data: {
+          'emailOrUsername': emailOrUsername,
+          'password': password,
+        },
+      );
+
+      var data = response.statusMessage;
+
+      if (response.statusCode == 200) {
+        // Post işlemi başarılı
+        print('Giriş işlemi başarılı: $data');
+      } else {
+        // Post işlemi başarısız
+        throw Exception('Giriş işlemi başarısız: $data');
+      }
+    } catch (error) {
+      // Hata oluştu
+      throw Exception('Giriş işlemi başarısız: $error');
     }
   }
 }

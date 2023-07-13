@@ -1,7 +1,8 @@
-// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import '../service/api_service.dart';
 
-// Durumlar (States)
+// State class
 abstract class LoginState {}
 
 class LoginInitial extends LoginState {}
@@ -11,63 +12,47 @@ class LoginLoading extends LoginState {}
 class LoginSuccess extends LoginState {}
 
 class LoginFailure extends LoginState {
-  final String error;
+  final String errorMessage;
 
-  LoginFailure({required this.error});
+  LoginFailure(this.errorMessage);
 }
 
-// Olaylar (Events)
+// Event class
 abstract class LoginEvent {}
 
-class UsernameChanged extends LoginEvent {
-  final String username;
-
-  UsernameChanged(this.username);
-}
-
-class PasswordChanged extends LoginEvent {
+class LoginButtonPressed extends LoginEvent {
+  final String emailOrUsername;
   final String password;
 
-  PasswordChanged(this.password);
+  LoginButtonPressed({
+    required this.emailOrUsername,
+    required this.password,
+  });
 }
 
-class LoginButtonPressed extends LoginEvent {}
-
-// BLoC
+// Bloc class
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginInitial()) {
-    on<UsernameChanged>((event, emit) {
-      // Kullanıcı adı değiştiğinde yapılacak işlemler
-    });
+  final ApiService apiService;
 
-    on<PasswordChanged>((event, emit) {
-      // Parola değiştiğinde yapılacak işlemler
-    });
-    on<LoginButtonPressed>((event, emit) {
-     
-      // Giriş butonuna basılma olayını işle
-      // Burada giriş işlemini gerçekleştir ve uygun durumu yayınla
-    });
+  LoginBloc(this.apiService) : super(LoginInitial()) {
+    on<LoginButtonPressed>(_onLoginButtonPressed);
   }
-  Stream<LoginState> mapEventToState(LoginEvent event) async* {
-    if (event is UsernameChanged) {
-      // Kullanıcı adı değişikliği olayı
-      yield LoginLoading();
-      // Kullanıcı adı geçerlilik kontrolü vb. işlemler yapılabilir
-    } else if (event is PasswordChanged) {
-      // Parola değişikliği olayı
-      yield LoginLoading();
-      // Parola geçerlilik kontrolü vb. işlemler yapılabilir
-    } else if (event is LoginButtonPressed) {
-      
-      // Giriş butonuna basılma olayı
-      yield LoginLoading();
-      try {
-        // Giriş işlemini gerçekleştir
-        // Eğer başarılıysa LoginSuccess, başarısızsa LoginFailure durumunu gönder
-      } catch (error) {
-        yield LoginFailure(error: error.toString());
-      }
+
+  void _onLoginButtonPressed(
+    LoginButtonPressed event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(LoginLoading());
+
+    try {
+      await apiService.loginUser(
+        emailOrUsername: event.emailOrUsername,
+        password: event.password,
+      );
+
+      emit(LoginSuccess());
+    } catch (error) {
+      emit(LoginFailure(error.toString()));
     }
   }
 }

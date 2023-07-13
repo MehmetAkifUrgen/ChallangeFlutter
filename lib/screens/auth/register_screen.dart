@@ -1,5 +1,9 @@
+import 'dart:math';
+
+import 'package:deneme_p/screens/auth/login_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../main.dart';
 import '/bloc/register_bloc.dart';
@@ -12,6 +16,8 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _formattedPhoneNumberController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +54,7 @@ class RegisterPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            const CustomNavigationBar(), // Ana sayfa widget'ı
+                            const LoginPage(), // Ana sayfa widget'ı
                       ),
                     );
                   } else if (state is RegisterFailure) {
@@ -80,6 +86,8 @@ class RegisterPage extends StatelessWidget {
                     firstNameController: _firstNameController,
                     lastNameController: _lastNameController,
                     phoneNumberController: _phoneNumberController,
+                    formattedPhoneNumberController:
+                        _formattedPhoneNumberController,
                     onSubmit: () {
                       final registerBloc =
                           BlocProvider.of<RegisterBloc>(context);
@@ -89,7 +97,8 @@ class RegisterPage extends StatelessWidget {
                         password: _passwordController.text,
                         firstName: _firstNameController.text,
                         lastName: _lastNameController.text,
-                        phoneNumber: _phoneNumberController.text,
+                        phoneNumber: _formattedPhoneNumberController.text
+                            .replaceAll('-', ''),
                       ));
                     },
                   );
@@ -110,6 +119,7 @@ class RegisterForm extends StatelessWidget {
   final TextEditingController firstNameController;
   final TextEditingController lastNameController;
   final TextEditingController phoneNumberController;
+  final TextEditingController formattedPhoneNumberController;
   final VoidCallback onSubmit;
 
   RegisterForm({
@@ -119,8 +129,119 @@ class RegisterForm extends StatelessWidget {
     required this.firstNameController,
     required this.lastNameController,
     required this.phoneNumberController,
+    required this.formattedPhoneNumberController,
     required this.onSubmit,
   });
+
+  void _formatPhoneNumber(String text) {
+    final previousCursorPosition = phoneNumberController.selection.baseOffset;
+
+    final formatted = StringBuffer();
+    var cursorPosition = 0;
+
+    final digitsOnly =
+        text.replaceAll(RegExp(r'\D'), ''); // Remove non-digit characters
+
+    if (digitsOnly.length >= 3) {
+      formatted.write(digitsOnly.substring(0, 3));
+      cursorPosition += 3;
+    } else {
+      formatted.write(digitsOnly);
+      cursorPosition += digitsOnly.length;
+    }
+
+    if (digitsOnly.length > 3) {
+      formatted.write('-');
+
+      if (digitsOnly.length >= 6) {
+        formatted.write(digitsOnly.substring(3, 6));
+        cursorPosition += 4;
+      } else {
+        formatted.write(digitsOnly.substring(3));
+        cursorPosition += digitsOnly.length + 1;
+      }
+    }
+
+    if (digitsOnly.length > 6) {
+      formatted.write('-');
+
+      if (digitsOnly.length >= 8) {
+        formatted.write(digitsOnly.substring(6, 8));
+        cursorPosition += 3;
+      } else {
+        formatted.write(digitsOnly.substring(6));
+        cursorPosition += digitsOnly.length + 1;
+      }
+    }
+
+    if (digitsOnly.length > 8) {
+      formatted.write('-');
+      formatted.write(digitsOnly.substring(8));
+      cursorPosition += digitsOnly.length + 1;
+    }
+
+    phoneNumberController.text = formatted.toString();
+
+    phoneNumberController.selection = TextSelection.fromPosition(
+      TextPosition(offset: min(cursorPosition, formatted.length)),
+    );
+  }
+
+  void _validateAndSubmit(BuildContext context) {
+    final firstName = firstNameController.text.trim();
+    final lastName = lastNameController.text.trim();
+    final email = emailController.text.trim();
+    final phoneNumber = formattedPhoneNumberController.text.replaceAll('-', '');
+    final username = usernameController.text.trim();
+    final password = passwordController.text;
+
+    if (firstName.isEmpty ||
+        lastName.isEmpty ||
+        email.isEmpty ||
+        phoneNumber.isEmpty ||
+        username.isEmpty ||
+        password.isEmpty) {
+      _showErrorMessage(context, 'Tüm alanları doldurun.');
+      return;
+    }
+
+    if (firstName.length < 3 ||
+        lastName.length < 3 ||
+        username.length < 3 ||
+        phoneNumber.length < 11) {
+      _showErrorMessage(context,
+          'Ad, Soyad, Kullanıcı Adı ve Telefon No en az 3 karakter olmalıdır.');
+      return;
+    }
+
+    if (password.length < 8) {
+      _showErrorMessage(context, 'Parola en az 8 karakter olmalıdır.');
+      return;
+    }
+
+    // All validations passed, call the onSubmit callback
+    onSubmit();
+  }
+
+  void _showErrorMessage(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Hata'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Tamam'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,9 +303,13 @@ class RegisterForm extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           TextField(
-            controller: phoneNumberController,
+            controller: formattedPhoneNumberController,
             keyboardType: TextInputType.phone,
-            onChanged: (value) {},
+            onChanged: _formatPhoneNumber,
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(
+                  14), // Limit to a maximum of 14 characters
+            ],
             decoration: InputDecoration(
               labelStyle: const TextStyle(color: Colors.black),
               labelText: 'Telefon No',
@@ -235,7 +360,7 @@ class RegisterForm extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: onSubmit,
+            onPressed: () => _validateAndSubmit(context),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.orange,
             ),
